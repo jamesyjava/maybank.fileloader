@@ -1,0 +1,16 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+:Program started;
+if (File exists) then (true)
+    :Read file;
+    :Map to transaction object;
+    :Upload into database;
+    :Count record in table;
+else (false)
+    :Log error file not found;
+endif
+stop
+
+@enduml

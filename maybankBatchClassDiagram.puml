@@ -1,0 +1,36 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Transaction {
+    +accountNumber  : string
+    +trx_amount     : double
+    +description    : string
+    +trxDate        : LocalDate
+    +trxTime        : LocalTime
+    +customerId     : int
+    +setTrxDate(trxDate: string)
+    +setTrxDate(trxTime: string)
+}
+
+class BatchConfiguration {
+    +jobBuilderFactory: JobBuilderFactory
+    +stepBuilderFactory: StepBuilderFactory
+    +reader(): FlatFileItemReader<Transaction>
+    +writer(dataSource: DataSource): JdbcBatchItemWriter<Transaction>
+    +importDataJob(listener: JobCompletionNotificationListener, step1: Step): Job
+    +step1(writer: JdbcBatchItemWriter<Transaction>): Step
+}
+
+class JobCompletionNotificationListener {
+    logger Logger
+    jdbcTemplate JdbcTemplate
+
+    +JobCompletionNotificationListener(jdbcTemplate: JdbcTemplate, transactionModelAssembler: TransactionModelAssembler)
+    +afterJob(jobExecution: JobExecution): void
+}
+
+Transaction <|--BatchConfiguration
+BatchConfiguration <|-- Transaction
+TransactionModelAssembler <|-- TransactionController
+
+@enduml
