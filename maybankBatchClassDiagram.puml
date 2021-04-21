@@ -9,7 +9,7 @@ class Transaction {
     +trxTime        : LocalTime
     +customerId     : int
     +setTrxDate(trxDate: string)
-    +setTrxDate(trxTime: string)
+    +setTrxTime(trxTime: string)
 }
 
 class BatchConfiguration {
